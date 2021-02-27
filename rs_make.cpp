@@ -103,12 +103,12 @@ int main(int argc, char** argv) {
 			}
 			else
 			{
-				for (uint64_t j = v - 1; j >= 0; j--) {
-					if (new_vertex[j][i] != -1) {
+				for (uint64_t j = 0; j < v; j++) {
+					if (new_vertex[v -1 - j][i] != -1) {
 						v_index += new_vertex[j][i];
 						total_v++;
 						output_file<<v_index;
-						if (i != vt-1 || j != 0)
+						if (i != vt-1 || j != v-1)
 							output_file<<" ";
 					}
 					else
@@ -127,9 +127,9 @@ int main(int argc, char** argv) {
 				}
 			}
 			else {
-				for (uint64_t j = new_edge[i].size() - 1; j >= 0; j--) {
-					output_file<<new_edge[i][j];
-					if (i != vt-1 || j != 0)
+				for (uint64_t j = 0; j < new_edge[i].size(); j++) {
+					output_file<<new_edge[i][new_edge[i].size() - 1 - j];
+					if (i != vt-1 || j != new_edge[i].size() - 1)
 						output_file<<" ";
 				}
 			}
