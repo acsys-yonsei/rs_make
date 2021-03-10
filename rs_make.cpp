@@ -106,7 +106,7 @@ int main(int argc, char** argv) {
 			{
 				for (uint64_t j = 0; j < v; j++) {
 					if (new_vertex[v -1 - j][i] != -1) {
-						v_index += new_vertex[j][i];
+						v_index += new_vertex[v - 1 - j][i];
 						total_v++;
 						output_file<<v_index;
 						if (i != vt-1 || j != v-1)
