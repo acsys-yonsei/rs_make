@@ -98,6 +98,7 @@ int main(int argc, char** argv) {
 							output_file<<" ";
 					}
 					else
+				
 						continue;
 				}
 			}
@@ -119,19 +120,10 @@ int main(int argc, char** argv) {
 		}
 		output_file<<endl;
 		for (int i = 0; i < vt; i++) {
-			if (i % 2 == 0) {
-					for (uint64_t j = 0; j < new_edge[i].size(); j++) {
-					output_file<<new_edge[i][j];
-					if (i != vt-1 || j != new_edge[i].size() - 1)
-						output_file<<" ";
-				}
-			}
-			else {
 				for (uint64_t j = 0; j < new_edge[i].size(); j++) {
-					output_file<<new_edge[i][new_edge[i].size() - 1 - j];
-					if (i != vt-1 || j != new_edge[i].size() - 1)
-						output_file<<" ";
-				}
+				output_file<<new_edge[i][j];
+				if (i != vt-1 || j != new_edge[i].size() - 1)
+					output_file<<" ";
 			}
 		}
 		output_file<<endl;
@@ -150,10 +142,15 @@ void tiling() {
 			limit = idx + block[tile][j];
 			limit *= unit_v;
 			int accum = 0;
+			vector<uint64_t> edge_temp;
 			while(!edge[i].empty() && edge[i].front() < limit) {
 				accum++;
-				new_edge[idx].push_back(edge[i].front());
+				edge_temp.insert(0, edge[i].front());
 				edge[i].erase(edge[i].begin());
+			}
+			while (!edge_temp.empty()) {
+				new_edge[idx].insert(0, edge_temp.front());
+				edge_temp.erase(edge_temp.begin());
 			}
 			new_vertex[i][idx] = accum;
 			idx += block[tile][j];
