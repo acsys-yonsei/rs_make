@@ -143,14 +143,23 @@ void tiling() {
 			limit *= unit_v;
 			int accum = 0;
 			vector<uint64_t> edge_temp;
-			while(!edge[i].empty() && edge[i].front() < limit) {
-				accum++;
-				edge_temp.insert(0, edge[i].front());
-				edge[i].erase(edge[i].begin());
+			if (idx % 2 == 1) {
+				while(!edge[i].empty() && edge[i].front() < limit) {
+					accum++;
+					edge_temp.insert(edge_temp.begin(), edge[i].front());
+					edge[i].erase(edge[i].begin());
+				}
+				while (!edge_temp.empty()) {
+					new_edge[idx].insert(new_edge[idx].begin(), edge_temp.front());
+					edge_temp.erase(edge_temp.begin());
+				}
 			}
-			while (!edge_temp.empty()) {
-				new_edge[idx].insert(0, edge_temp.front());
-				edge_temp.erase(edge_temp.begin());
+			else {
+				while(!edge[i].empty() && edge[i].front() < limit) {
+					accum++;
+					new_edge[idx].push_back(edge[i].front());
+					edge[i].erase(edge[i].begin());
+				}
 			}
 			new_vertex[i][idx] = accum;
 			idx += block[tile][j];
